@@ -318,6 +318,7 @@ def obtener_clima():
             
 # █▄▄ ▄▀█ █▀█
 # █▄█ █▀█ █▀▄
+
 BASE = '#1e2030'  # El fondo de los widgets
 COLOR_SECOND = "#2b2e44" 
 COLOR_CILE = '#c19cf2'
@@ -336,26 +337,60 @@ screens = [
         top = bar.Bar( 
             [
                 widget.Spacer(
-                    length = 18, # es el espacio transparente que tendra 
+                    length = 8, # es el espacio transparente que tendra 
                     background = '#000000.0',
+
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base g
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
                 ),
                 #ESPACIO DE LOS ENTORNOS DE PANTALLAS (TRABAJO)
                 widget.GroupBox(
                     visible_groups = ['1', '2', '3'] if Screen == 0 else ['4', '5', '6'],
-                    fontsize = FONT,
-                    borderwidth = 2,
+                    font = FONT,
                     highlight_method = 'block',
                     inactive = COLOR_SECOND, #color que tomara cuando no este ocupando el escritorio
                     active = COLOR_SECOND,
                     foreground = COLOR_SECOND, #color como se va a ver los textos
                     background = BASE,
-                    rounded = True,
                     this_current_screen_border = COLOR_CILE,
                     disable_drag = True,
+                    
+                    #redondeo 
+                    rounded = True,
+                    borderwidth = 2,
+                    
+                    #tamaño de las capsulas
+                    padding_x = 10, #espacio horizonal interno del ovalo
+                    padding_y = 6, #espacio vertical interno del ovalo
+                    margin_x = 5, #separacion entre los numeros
+                    margin_y = 3, 
+                    
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
                 ),
                 widget.Spacer(
                     length = 10,
                     background = '#000000.0',    
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
                 ),
                 #CONFUGURACION PARA EL TIPO DE VENTANA (COLUMNS, MATRIX, MAX, FLOATING, ETC..)
                 widget.CurrentLayout(
@@ -365,9 +400,25 @@ screens = [
                     fontsize = 15,
                     padding = 0,
                 ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
                 widget.Spacer(
                     length = 10,
                     background = '#000000.0',
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
                 ),
                 #CONFIGURACION PARA LOS TEXTO DE LAS APLICACIONES EN LA BARRA DE TAREA
                 widget.WindowName(
@@ -378,10 +429,26 @@ screens = [
                     #padding = 10,
                     width = bar.CALCULATED,
                 ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
                 widget.Spacer(
                     length = 550,
                     background = '#000000.0',
             
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
                 ),
                 widget.GenPollText(
                     func = obtener_hora_am_pm,
@@ -404,6 +471,14 @@ screens = [
                     padding = 10,           # Le damos un poquito de aire a los lados
                     foreground = TEXT_COLOR,
                 ),
+                                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
                 
                 
             ],
@@ -413,7 +488,7 @@ screens = [
     ),
     
     
-    
+    #minitor 2
     Screen(
         top = bar.Bar(
             [   
@@ -426,8 +501,10 @@ screens = [
                     background = '#1e2030',
                     mouse_callbacks = {'Button1': open_launcher},
                 ),
-
-                widget.GroupBox(
+                #cuadriculas con numeros
+                widget.GroupBox( 
+                    #forma circular
+                         
                     fontsize = 16,
                     borderwidth = 0,
                     highlight_method = 'block',
@@ -445,6 +522,7 @@ screens = [
                     urgent_border = '#52548D',
                     rounded = True,
                     disable_drag = True,
+                    
                  ),
 
 
@@ -613,7 +691,7 @@ screens = [
         wallpaper_mode="fill",
     ),
     
-
+    #monitor 3
     Screen(
         top = bar.Bar(
             [   
