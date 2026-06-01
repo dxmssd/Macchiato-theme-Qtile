@@ -85,7 +85,8 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    # Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+     
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -116,7 +117,7 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod1], "Space", lazy.spawn("rofi -theme rounded-green-dark -show drun"), desc="Spawn a command using a prompt widget"),
+    Key([mod], "space", lazy.spawn("rofi -show drun -show-icons"), desc="Spawn a command using a prompt widget"),
 
 
 ##CUSTOM
@@ -196,47 +197,53 @@ for i in ["1", "2", "3"]:
 
 ###𝙇𝙖𝙮𝙤𝙪𝙩###
 
+BORDER_FOCUS_BASE = "#9c77c9d8"
+BORDER_NORMAL_OSCURO = '#1e1e2e'
+
+
+
 layouts = [ #cambiar el color de los borde de las pantallas 
     layout.Columns(
         margin = 0,
-        border_focus = '#c19cf2',
-        border_normal = "#564074",
-        border_width = 3,
+        border_focus = BORDER_FOCUS_BASE,
+        border_normal = BORDER_NORMAL_OSCURO,
+        border_width = 2,
+        
     ),
     
     layout.Max(
-        border_focus = '#c19cf2',
-        border_normal = '#c19cf2',
-        margin = 0,
+        border_focus = BORDER_FOCUS_BASE,
+        border_normal = BORDER_NORMAL_OSCURO,
+        margin = 3,
         border_width = 0,
     ),
     
     layout.Floating(
-        border_focus = '#c19cf2',
-        border_normal = '#c19cf2',
-        margin = 0,
+        border_focus = BORDER_FOCUS_BASE,
+        border_normal = BORDER_NORMAL_OSCURO,
+        margin = 3,
         border_width = 3,
     ),
     # Try more layouts by unleashing below layouts
    #  layout.Stack(num_stacks=2),
    #  layout.Bsp(),
      layout.Matrix(
-        border_focus = '#c19cf2',
-        border_normal = '#c19cf2',
-        margin = 0,
+        border_focus = BORDER_FOCUS_BASE,
+        border_normal = BORDER_NORMAL_OSCURO,
+        margin = 3,
         border_width = 3,
     ),
      
     layout.MonadWide(
-        border_focus = '#c19cf2',
-        border_normal = '#c19cf2',
-        margin = 0,
+        border_focus = BORDER_FOCUS_BASE,
+        border_normal = BORDER_NORMAL_OSCURO,
+        margin = 3,
         border_width = 3,
     ),
     layout.Tile(
-        border_focus = '#c19cf2',
-        border_normal = '#c19cf2',
-        margin = 0,
+        border_focus = BORDER_FOCUS_BASE,
+        border_normal = BORDER_NORMAL_OSCURO,
+        margin = 3,
         border_width = 3,
     ),
    #  layout.TreeTab(),
@@ -246,7 +253,7 @@ layouts = [ #cambiar el color de los borde de las pantallas
 
 
 widget_defaults = dict(
-    font = "sans",
+    font = "JetBrainsMono Nerd Font",
     fontsize = 12,
     padding = 4,
 )
@@ -325,7 +332,9 @@ COLOR_CILE = '#c19cf2'
 TEXT_COLOR = '#cdd6f4' #color de texto
 SUBTEXT = '#a6adc8' 
 BORDER_COL = '#c19cf2'
+BASE_TRANSPARENTE = "#00000000"
 FONT = 'JetBrainsMono Nerd Font'
+COLOR_ICONS = '#f0e9eb'
 
 #========================================================================
 # ============================ SCREEN ===================================
@@ -337,15 +346,216 @@ screens = [
         top = bar.Bar( 
             [
                 widget.Spacer(
-                    length = 8, # es el espacio transparente que tendra 
-                    background = '#000000.0',
-
+                    length = 10,
                 ),
                 #border redondeados lado izquierdo
                 widget.TextBox(
                     text = "",
-                    foreground = BASE,        # El colro base g
-                    background = '#000000.0', # El fondo transparente de la barra
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #ESPACIO DE LOS ENTORNOS DE PANTALLAS (TRABAJO)
+                widget.GroupBox(
+                    visible_groups = ['1', '2', '3'] if Screen == 0 else ['4', '5', '6'],
+                    font = FONT,
+                    highlight_method = 'block',
+                    inactive = COLOR_SECOND, #color que tomara cuando no este ocupando el escritorio
+                    active = COLOR_SECOND,
+                    foreground = COLOR_SECOND, #color como se va a ver los textos
+                    background = BASE,
+                    this_current_screen_border = COLOR_CILE,
+                    disable_drag = True,
+                    
+                    #redondeo 
+                    rounded = True,
+                    borderwidth = 2,
+                    
+                    #tamaño de las capsulas
+                    padding_x = 10, #espacio horizonal interno del ovalo
+                    padding_y = 6, #espacio vertical interno del ovalo
+                    margin_x = 5, #separacion entre los numeros
+                    margin_y = 3, 
+                    
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 10,
+                     
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #CONFUGURACION PARA EL TIPO DE VENTANA (COLUMNS, MATRIX, MAX, FLOATING, ETC..)
+                widget.CurrentLayout(
+                    background =BASE,
+                    foreground = TEXT_COLOR,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 0,
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 10,
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #CONFIGURACION PARA LOS TEXTO DE LAS APLICACIONES EN LA BARRA DE TAREA
+                widget.WindowName(
+                    background =BASE,
+                    foreground = TEXT_COLOR,
+                    fontsize = 15,
+                    parse_text = limpiar_nombre_ventana,
+                    #padding = 10,
+                    width = bar.CALCULATED,
+                ),
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 500,
+            
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.GenPollText(
+                    func = obtener_hora_am_pm,
+                    update_interval = 1,
+                    format = "%I:%M", 
+                    background = BASE,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 0,
+                    mouse_callbacks = {
+                      'Button1': lazy.spawn('gsimplecal')  
+                    },
+                ), 
+                widget.GenPollText(
+                    func = obtener_clima,
+                    update_interval = 900,  # Se actualiza cada 15 minutos (900 segundos) para no saturar tu red
+                    background = BASE,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 10,           # Le damos un poquito de aire a los lados
+                    foreground = COLOR_ICONS,
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 500,
+            
+                ),
+                
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.TextBox(
+                    #inicio de wifi 
+                    text = "󰤨", # Ícono premium de Nerd Fonts
+                    font = FONT,
+                    fontsize = 18,
+                    foreground = COLOR_ICONS,   
+                    background = BASE,
+                    padding = 6,
+                    # Al hacerle click izquierdo, te abre el gestor de red en la terminal
+                    mouse_callbacks = {
+                        'Button1': lambda: qtile.spawn('alacritty --class FloatingTUI,FloatingTUI -e nmtui')
+                    }
+                    #finde wifi
+                ),
+                #boton para el pagado
+                widget.TextBox(
+                    #inicio del boton apagado
+                    text = "",
+                    foreground = COLOR_ICONS,
+                    background = BASE,
+                    fontsize = 18,
+                    padding = 10,
+                    mouse_callbacks = {
+                            'Button1': lambda: qtile.spawn('bash -c "sh ~/.config/qtile/powermenu.sh"')
+                        }
+                    #fin del boton apagado
+                    
+                    ),
+                
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 8, # es el espacio transparente que tendra 
+
+                ),
+
+                
+            ],
+            30,
+            background= BASE_TRANSPARENTE,
+            margin = [5,0,5,0]
+        ),
+        wallpaper='~/.config/qtile/Wallpaper/wall.png',
+        wallpaper_mode="fill",
+
+    ),
+    
+    
+    
+    #monitor 2
+
+
+    Screen(
+        #ESPACIO ENTRE EL BORDE
+        top = bar.Bar( 
+            [
+                widget.Spacer(
+                    length = 8, # es el espacio transparente que tendra 
+
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "█",
+                    foreground = BASE,        # El colro base 
                     fontsize = 27.5,            # Tamaño del arco
                     padding = 0
                 ),
@@ -471,7 +681,7 @@ screens = [
                     padding = 10,           # Le damos un poquito de aire a los lados
                     foreground = TEXT_COLOR,
                 ),
-                                #border redondeados lado derecho
+                #border redondeados lado derecho
                 widget.TextBox(
                     text = "",
                     foreground = BASE,        # El colro base 
@@ -479,217 +689,61 @@ screens = [
                     fontsize = 27.5,            # Tamaño del arco
                     padding = 0
                 ),
-                
-                
-            ],
-            30,
-        )
-
-    ),
-    
-    
-    #minitor 2
-    Screen(
-        top = bar.Bar(
-            [   
                 widget.Spacer(
-                    length = 18,
-                    background = "#1e2030",
+                    length = 500,
+                    background = '#000000.0',
+            
                 ),
                 
-                widget.Image(
-                    background = '#1e2030',
-                    mouse_callbacks = {'Button1': open_launcher},
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
                 ),
-                #cuadriculas con numeros
-                widget.GroupBox( 
-                    #forma circular
-                         
-                    fontsize = 16,
-                    borderwidth = 0,
-                    highlight_method = 'block',
-                    active = '#c19cf2', #Active workspaces circle color
-                    block_highlight_text_color = '#c19cf2', #Current workspace circle color
-                    highlight_color = "#6FB81D",
-                    inactive = "#d3e719", #Empty workspace circle
-                    foreground = "#2b045e",
-                    background = '#1e2030',
-                    
-                    this_current_screen_border = "#1e2030", #Circle background color
-                    this_screen_border = '#52548D',
-                    other_current_screen_border = '#c19cf2',
-                    other_screen_border = '#52548D',
-                    urgent_border = '#52548D',
-                    rounded = True,
-                    disable_drag = True,
-                    
-                 ),
-
-
-                
-                widget.CurrentLayout(
-                    background ='#1e2030',
+                #boton para el pagado
+                widget.TextBox(
+                    text = "", # Icono de apagado de Nerd Fonts
                     font = FONT,
-                    fontsize = 15,
-                    padding = 0,
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',                
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/2.png',
-                ),
-
-                widget.WindowName(
-                    background = '#1e2030',
-                    format = "{name}",
-                    font = 'IBM Plex Mono Medium',
                     fontsize = 14,
-                    empty_group_string = 'Desktop',
-                    padding = 0,
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',                
-                ),  
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/1.png',                
-                    background = '#1e2030',
-                ),
-
-                widget.CPU(
-                    font = "IBM Plex Mono Medium",
-                    format='CPU:({load_percent:.1f}%/{freq_current}GHz)',
-                    fontsize = 15,
-                    margin = 0,
-                    padding = 0,
-                    background = '#1e2030',
-                    mouse_callbacks = {'Button1': open_btop},
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/2.png',                
-                    background = '#1e2030',
-                ),  
-  
-                widget.Systray(
-                    background = '#1e2030',
-                    icon_size = 24,
-                    padding = 3,
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/2.png',                
-                    background = '#1e2030',
-                ),                    
-                                                
-                widget.Spacer(
-                    length = 0,
-                    background = '#1e2030',
-                ),  
-               
-                widget.Memory(
-                    format = 'RAM:({MemUsed:.0f}MB/{MemTotal:.0f}MB)',
-                    font = "IBM Plex Mono Medium",
-                    fontsize = 15,
-                    padding = 0,
-                    background = '#1e2030',
-                    mouse_callbacks = {'Button1': open_btop},
-                ),
-
-                widget.Spacer(
-                    length = 6,
-                    background = '#1e2030',
-                ),  
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/Bar-Icons/volume.svg',
-                    background = '#1e2030',
-                    margin_y = 3,
-                    scale = True,
-                    mouse_callbacks = {'Button1': open_btop},
-                ),
-
-                widget.Spacer(
-                    length = 4,
-                    background = '#1e2030',
-                ), 
+                    
                 
-                widget.PulseVolume(
-                    font= 'IBM Plex Mono Medium',
-                    fontsize = 15,
-                    padding = 0,
-                    background = '#1e2030',
+                    padding = 6,
+                    # Al hacer clic izquierdo (Button 1), abre tu menú de apagado (puedes usar rofi si lo tienes)
+                    mouse_callbacks = {
+                        'Button1': lazy.spawn('systemctl poweroff'), # Clic izquierdo: Apaga el PC
+                        'Button3': lazy.spawn('systemctl reboot'),   # Clic derecho: Reinicia el PC
+                    },
                 ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',
-                ),                
-
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/1.png',                
-                    background = '#1e2030',
+                
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    background = '#000000.0', # El fondo transparente de la barra
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
                 ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/Bar-Icons/calendar.svg',
-                    background = '#1e2030',
-                    margin_y = 3,
-                    scale = True,
-                ),
-
                 widget.Spacer(
-                    length = 6,
-                    background = '#1e2030',
-                ), 
-        
-                widget.Clock(
-                    format = '%d/%m/%y ', #Here you can change between USA or another timezone
-                    background = '#1e2030',
-                    font = "IBM Plex Mono Medium",
-                    fontsize = 15,
-                    padding = 0,
+                    length = 8, # es el espacio transparente que tendra 
+                    background = '#000000.0',
+
                 ),
 
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/Bar-Icons/clock.svg',
-                    background = '#1e2030',
-                    margin_y = 3,
-                    margin_x = 5,
-                    scale = True,
-                ),
-
-                widget.Clock(
-                    format = '%H:%M', 
-                    background = '#1e2030',
-                    font = "IBM Plex Mono Medium",
-                    fontsize = 15,
-                    padding = 0,
-                ),
-
-                widget.Spacer(
-                    length = 18,
-                    background = '#1e2030',
-                ),
+                
             ],
-            30,  # Bar size (all axis)
-            margin = [0,8,6,8] # Bar margin (Top,Right,Bottom,Left)
+            33,
+            background= BASE_TRANSPARENTE,
         ),
-        wallpaper='~/.config/qtile/Wallpaper/Skyscraper.png',
+        wallpaper='~/.config/qtile/Wallpaper/wall.png',
         wallpaper_mode="fill",
+
     ),
+    
+
+ 
     
     #monitor 3
     Screen(
@@ -919,8 +973,8 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False #This basically puts your mouse in the center on the screen after you switch to another workspace
 floating_layout = layout.Floating(
-	border_focus='#00DC6C',
-	border_normal='#1F1D2E',
+	border_focus= BORDER_FOCUS_BASE,
+	border_normal= BORDER_NORMAL_OSCURO,
 	border_width=3,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -931,6 +985,9 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        
+        Match(wm_class="FloatingTUI"),
+        
     ]
 )
 
@@ -968,8 +1025,10 @@ wmname = "LG3D"
 
 
 import os
+import subprocess
 from libqtile import hook
 
-@hook.subscribe.startup
+@hook.subscribe.startup_once
 def autostart():
-    os.StrOrBytesPath("sh ~/.config/qtile/autostart.sh")
+    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.Popen(['sh', home])
