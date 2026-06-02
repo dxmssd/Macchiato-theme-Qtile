@@ -1,0 +1,99 @@
+cconfiguration {
+    show-icons:      true;
+}
+
+
+* {
+    /* Variables de colores*/
+    bg:       #1e2030;
+    fg:       #cad3f5;
+    purple:   #be9aee; 
+    border:   #c29df2; 
+    surface:  #363a4f;
+
+    /* Fuente global */
+    font: "JetBrainsMono Nerd Font 12";
+
+    /* Reset por defecto para evitar conflictos */
+    background-color:   transparent;
+    text-color:         @fg;
+}
+
+/* ========================================================================
+   VENTANA PRINCIPAL
+   ======================================================================== */
+window {
+    width:            25%;
+    background-color: @bg;
+    border:           2px;
+    border-color:     @border;
+    border-radius:    20px;       /* El redondeo Pill de 20px */
+    padding:          10px;       
+}
+
+mainbox {
+    background-color: transparent;
+    children:         [ inputbar, listview ];
+}
+
+/* ========================================================================
+   BARRA DE BÚSQUEDA (INPUT)
+   ======================================================================== */
+inputbar {
+    background-color: @surface;
+    border:           1px;
+    border-color:     @border;
+    border-radius:    12px;       
+    margin:           0px 0px 10px 0px; 
+    padding:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color:       @purple;
+}
+
+entry {
+    placeholder:      "Buscar...";
+    placeholder-color: #5b6078;
+    text-color:       @fg;
+}
+
+/* ========================================================================
+   LISTA DE OPCIONES
+   ======================================================================== */
+listview {
+    fixed-height:     0;
+    lines:            6;
+    spacing:          5px;
+    scrollbar:        false;      
+}
+
+element {
+    padding:          8px;        
+    border-radius:    12px;       /* Esquinas de 12px para los elementos */
+}
+
+/* Forzar fondos transparentes en estados normales */
+element normal.normal { background-color: transparent; }
+element alternate.normal { background-color: transparent; }
+
+/* El estado seleccionado de Omarchy (Morado con letras oscuras) */
+element selected.normal {
+    background-color: @purple;    
+}
+
+/* Cambiar el color del texto a oscuro cuando está seleccionado */
+element-text selected.normal {
+    text-color:       @bg;
+}
+
+/* Forzar que el texto normal sea del color claro de Omarchy */
+element-text {
+    text-color:       @fg;
+}
+
+/* Mantener el color oscuro cuando sí está seleccionado */
+element-text selected.normal {
+    text-color:       @bg;
+} 

@@ -117,6 +117,7 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    #WOFI 
     Key([mod], "space", lazy.spawn("rofi -show drun -show-icons"), desc="Spawn a command using a prompt widget"),
 
 
@@ -497,7 +498,7 @@ screens = [
                     padding = 6,
                     # Al hacerle click izquierdo, te abre el gestor de red en la terminal
                     mouse_callbacks = {
-                        'Button1': lambda: qtile.spawn('alacritty --class FloatingTUI,FloatingTUI -e nmtui')
+                        'Button1': lambda: qtile.spawn('bash -c "sh ~/.config/qtile/wifimenu.sh"')
                     }
                     #finde wifi
                 ),
