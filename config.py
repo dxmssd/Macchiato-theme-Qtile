@@ -480,7 +480,6 @@ screens = [
                     length = 500,
             
                 ),
-                
                 #border redondeados lado izquierdo
                 widget.TextBox(
                     text = "",
@@ -488,25 +487,30 @@ screens = [
                     fontsize = 27.5,            # Tamaño del arco
                     padding = 0
                 ),
+                
                 #volumen 
                 widget.TextBox(
                     text="  ",
-                    foreground="#c19cf2", # Tu morado/magenta característico
-                    background="#1e1e2e", # El fondo oscuro de tu barra
+                    foreground= COLOR_ICONS, 
+                    background= BASE,
                     padding=2
                 ),
                 widget.Volume(
-                    foreground="#c19cf2",
-                    background="#1e1e2e",
+                    foreground= COLOR_ICONS,
+                    background= BASE,
                     fmt="{} ",
-                    padding=5
+                    padding=5,
+            
+                    volume_up_command="amixer set Master 2%+",   # Sube de a 5%
+                    volume_down_command="amixer set Master 2%-", # Baja de a 5%
+                    volume_app="amixer", # Vincula el control interno del widget
                 ),
                 widget.TextBox(
                     text="|",
                     foreground="#44475a", # Un gris sutil para separar del siguiente widget
-                    background="#1e1e2e",
+                    background= BASE,
                     padding=2
-            ),
+                ),
                 #bluetooth
                 #monitoreo
                 #idioma de telcado 
@@ -525,6 +529,12 @@ screens = [
                     }
                     #finde wifi
                 ),
+                                widget.TextBox(
+                    text=" | ",
+                    foreground="#44475a", # Un gris sutil para separar del siguiente widget
+                    background="#1e1e2e",
+                    padding=2
+            ),
                 #boton para el pagado
                 widget.TextBox(
                     #inicio del boton apagado
@@ -566,8 +576,6 @@ screens = [
     
     
     #monitor 2
-
-
     Screen(
         #ESPACIO ENTRE EL BORDE
         top = bar.Bar( 
