@@ -488,6 +488,29 @@ screens = [
                     fontsize = 27.5,            # Tamaño del arco
                     padding = 0
                 ),
+                #volumen 
+                widget.TextBox(
+                    text="  ",
+                    foreground="#c19cf2", # Tu morado/magenta característico
+                    background="#1e1e2e", # El fondo oscuro de tu barra
+                    padding=2
+                ),
+                widget.Volume(
+                    foreground="#c19cf2",
+                    background="#1e1e2e",
+                    fmt="{} ",
+                    padding=5
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", # Un gris sutil para separar del siguiente widget
+                    background="#1e1e2e",
+                    padding=2
+            ),
+                #bluetooth
+                #monitoreo
+                #idioma de telcado 
+                
                 widget.TextBox(
                     #inicio de wifi 
                     text = "󰤨", # Ícono premium de Nerd Fonts
