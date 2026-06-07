@@ -24,6 +24,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from email.mime import base
+
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, hook, Screen, KeyChord
 from libqtile.lazy import lazy
@@ -438,7 +440,7 @@ screens = [
                     padding = 0
                 ),
                 widget.Spacer(
-                    length = 500,
+                    length = 430,
             
                 ),
                 #border redondeados lado izquierdo
@@ -462,11 +464,11 @@ screens = [
                 ), 
                 widget.GenPollText(
                     func = obtener_clima,
-                    update_interval = 900,  # Se actualiza cada 15 minutos (900 segundos) para no saturar tu red
+                    update_interval = 900,  # Se actualiza cada 15 minutos 
                     background = BASE,
                     font = FONT,
                     fontsize = 15,
-                    padding = 10,           # Le damos un poquito de aire a los lados
+                    padding = 10,          
                     foreground = COLOR_ICONS,
                 ),
                 #border redondeados lado derecho
@@ -512,8 +514,43 @@ screens = [
                     padding=2
                 ),
                 #bluetooth
+                widget.TextBox(
+                    text=" 󰂯 ",
+                    foreground=COLOR_ICONS, 
+                    background=BASE,
+                    fontsize=16,
+                    mouse_callbacks={
+                        'Button1': lazy.spawn("rofi-bluetooth"),
+                        'Button3': lazy.spawn("bluetoothctl power toggle")
+                    }
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", 
+                    background="#1e1e2e",
+                    padding=2
+                ),
                 #monitoreo
-                #idioma de telcado 
+                
+                
+                #idioma de telcado
+                widget.TextBox(
+                    text=" 󰌌 ",      
+                    fontsize=16,            
+                    foreground= COLOR_ICONS,   # Tu amarillo pastel aesthetic
+                    background= BASE,
+                    padding=5,
+                    mouse_callbacks={
+                        # UN SOLO CLIC: Si está en inglés pasa a español, si está en español pasa a inglés
+                        'Button1': lazy.spawn("sh -c 'setxkbmap -query | grep -q \"layout:     us\" && setxkbmap es || setxkbmap us'")
+                    }
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", 
+                    background="#1e1e2e",
+                    padding=2
+                ),
                 
                 widget.TextBox(
                     #inicio de wifi 
