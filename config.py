@@ -33,7 +33,7 @@ from libqtile.dgroups import simple_key_binder
 
 
 mod = "mod4" #aka Windows key
-terminal = "alacritty" #This is an example on how flexible Qtile is, you create variables then use them in a keybind for example (see below)
+terminal = "ghostty" #This is an example on how flexible Qtile is, you create variables then use them in a keybind for example (see below)
 mod1 = "mod1" #alt key
 filemanager = "thunar"
 
@@ -1033,3 +1033,8 @@ from libqtile import hook
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.Popen(['sh', home])
+    
+    
+    
+    
+    
