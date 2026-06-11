@@ -1,0 +1,64 @@
+/* 1. CAMBIAR LA FUENTE DE TODO EL PROGRAMA */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 10pt;
+}
+
+/* 2. CONTENEDOR PRINCIPAL DE ARCHIVOS */
+.view, iconview, flowbox {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+}
+
+/* 3. PANEL LATERAL (El morado estético) */
+.sidebar, stacksidebar, list {
+    background-color: #181825;
+    color: #cdd6f4;
+}
+
+/* ======================================================= */
+/* 4. CONFIGURACIÓN DE SELECCIÓN (TRANSPARENCIA Y BORDES)  */
+/* ======================================================= */
+
+/* Cuando arrastras el mouse para seleccionar varios (Cuadro de selección) */
+rubberband, .rubberband {
+    /* #c19cf2  con 0.3 de opacidad para que sea transparente */
+    background-color: rgba(193, 156, 242, 0.3); 
+    /* El borde del cuadro ahora es morado fino sin azul */
+    border: 1px solid #c19cf2; 
+}
+
+/* Elementos seleccionados (Carpetas y filas) cuando la ventana está ACTIVA */
+.view:selected, iconview:selected, .sidebar:selected, list row:selected, selection {
+    background-color: rgba(193, 156, 242, 0.4); /* Fondo morado transparente */
+    color: #cdd6f4; /* Texto blanco */
+    border-color: #c19cf2; /* Borde morado */
+}
+
+/* Evita que se ponga azul cuando pinchas en otra ventana (Inactiva) */
+.standard-view:selected:backdrop,
+ExoIconView:selected:backdrop {
+    background-color: rgba(193, 156, 242, 0.15) !important;
+    border-color: transparent !important;
+}
+
+/* ======================================================= */
+/* 5. PARCHE PARA LAS BARRAS CLARAS (Superior, Inferior y Menús) */
+/* ======================================================= */
+menubar, .menubar, toolbar, .toolbar, statusbar, .statusbar, combobox {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    border: none;
+}
+
+/* Caja de texto de la ruta */
+entry {
+    background-color: #181825;
+    color: #cdd6f4;
+    border: 1px solid #44475a;
+    border-radius: 4px;
+}
+
+menubar menuitem, .menubar menuitem {
+    color: #cdd6f4;
+}
