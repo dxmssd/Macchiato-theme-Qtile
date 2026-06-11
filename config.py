@@ -432,6 +432,272 @@ screens = [
                     parse_text = limpiar_nombre_ventana,
                     #padding = 10,
                     width = bar.CALCULATED,
+                    max_chars= 10, # Limita el nombre de la ventana a 20 caracteres para evitar que se desborde en la barra.
+                ),
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 430,
+            
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.GenPollText(
+                    func = obtener_hora_am_pm,
+                    update_interval = 1,
+                    format = "%I:%M", 
+                    background = BASE,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 0,
+                    mouse_callbacks = {
+                      'Button1': lazy.spawn('gsimplecal')  
+                    },
+                ), 
+                widget.GenPollText(
+                    func = obtener_clima,
+                    update_interval = 900,  # Se actualiza cada 15 minutos 
+                    background = BASE,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 10,          
+                    foreground = COLOR_ICONS,
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 500,
+            
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                
+                #volumen 
+                widget.TextBox(
+                    text="  ",
+                    foreground= COLOR_ICONS, 
+                    background= BASE,
+                    padding=2
+                ),
+                widget.Volume(
+                    foreground= COLOR_ICONS,
+                    background= BASE,
+                    fmt="{} ",
+                    padding=5,
+            
+                    volume_up_command="amixer set Master 2%+",   # Sube de a 5%
+                    volume_down_command="amixer set Master 2%-", # Baja de a 5%
+                    volume_app="amixer", # Vincula el control interno del widget
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", # Un gris sutil para separar del siguiente widget
+                    background= BASE,
+                    padding=2
+                ),
+                #bluetooth
+                widget.TextBox(
+                    text=" 󰂯 ",
+                    foreground=COLOR_ICONS, 
+                    background=BASE,
+                    fontsize=16,
+                    mouse_callbacks={
+                        'Button1': lazy.spawn("rofi-bluetooth"),
+                        'Button3': lazy.spawn("bluetoothctl power toggle")
+                    }
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", 
+                    background="#1e1e2e",
+                    padding=2
+                ),
+                #monitoreo
+                #idioma de telcado
+                widget.TextBox(
+                    text=" 󰌌 ",      
+                    fontsize=16 ,            
+                    foreground= COLOR_ICONS,   # Tu amarillo pastel aesthetic
+                    background= BASE,
+                    padding=5,
+                    mouse_callbacks={
+                        # UN SOLO CLIC: Si está en inglés pasa a español, si está en español pasa a inglés
+                        'Button1': lazy.spawn("sh -c 'setxkbmap -query | grep -q \"layout:     us\" && setxkbmap es || setxkbmap us'")
+                    }
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", 
+                    background="#1e1e2e",
+                    padding=2
+                ),
+                
+                widget.TextBox(
+                    #inicio de wifi 
+                    text = "󰤨", # Ícono premium de Nerd Fonts
+                    font = FONT,
+                    fontsize = 18,
+                    foreground = COLOR_ICONS,   
+                    background = BASE,
+                    padding = 6,
+                    # Al hacerle click izquierdo, te abre el gestor de red en la terminal
+                    mouse_callbacks = {
+                        'Button1': lambda: qtile.spawn('bash -c "sh ~/.config/qtile/wifimenu.sh"')
+                    }
+                    #finde wifi
+                ),
+                                widget.TextBox(
+                    text=" | ",
+                    foreground="#44475a", # Un gris sutil para separar del siguiente widget
+                    background="#1e1e2e",
+                    padding=2
+            ),
+                #boton para el pagado
+                widget.TextBox(
+                    #inicio del boton apagado
+                    text = "",
+                    foreground = COLOR_ICONS,
+                    background = BASE,
+                    fontsize = 18,
+                    padding = 10,
+                    mouse_callbacks = {
+                            'Button1': lambda: qtile.spawn('bash -c "sh ~/.config/qtile/powermenu.sh"')
+                        }
+                    #fin del boton apagado
+                    
+                    ),
+                
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 8, # es el espacio transparente que tendra 
+
+                ),             
+            ],
+            30,
+            background= BASE_TRANSPARENTE,
+            margin = [5,0,5,0]
+        ),
+        wallpaper='~/.config/qtile/Wallpaper/wall.png',
+        wallpaper_mode="fill",
+    ),
+    
+    
+    
+    #monitor 2
+    Screen(
+        #ESPACIO ENTRE EL BORDE
+        top = bar.Bar( 
+            [
+                widget.Spacer(
+                    length = 10,
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #ESPACIO DE LOS ENTORNOS DE PANTALLAS (TRABAJO)
+                widget.GroupBox(
+                    visible_groups = ['1', '2', '3'] if Screen == 0 else ['4', '5', '6'],
+                    font = FONT,
+                    highlight_method = 'block',
+                    inactive = COLOR_SECOND, #color que tomara cuando no este ocupando el escritorio
+                    active = COLOR_SECOND,
+                    foreground = COLOR_SECOND, #color como se va a ver los textos
+                    background = BASE,
+                    this_current_screen_border = COLOR_CILE,
+                    disable_drag = True,
+                    
+                    #redondeo 
+                    rounded = True,
+                    borderwidth = 2,
+                    
+                    #tamaño de las capsulas
+                    padding_x = 10, #espacio horizonal interno del ovalo
+                    padding_y = 6, #espacio vertical interno del ovalo
+                    margin_x = 5, #separacion entre los numeros
+                    margin_y = 3, 
+                    
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 10,
+                     
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #CONFUGURACION PARA EL TIPO DE VENTANA (COLUMNS, MATRIX, MAX, FLOATING, ETC..)
+                widget.CurrentLayout(
+                    background =BASE,
+                    foreground = TEXT_COLOR,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 0,
+                    max_chars= 10, # Limita el nombre de la ventana a 20 caracteres para evitar que se desborde en la barra.
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 10,
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #CONFIGURACION PARA LOS TEXTO DE LAS APLICACIONES EN LA BARRA DE TAREA
+                widget.WindowName(
+                    background =BASE,
+                    foreground = TEXT_COLOR,
+                    fontsize = 15,
+                    parse_text = limpiar_nombre_ventana,
+                    #padding = 10,
+                    width = bar.CALCULATED,
                 ),
                 widget.TextBox(
                     text = "",
@@ -536,7 +802,278 @@ screens = [
                 #idioma de telcado
                 widget.TextBox(
                     text=" 󰌌 ",      
-                    fontsize=16,            
+                    fontsize=16 ,            
+                    foreground= COLOR_ICONS,   # Tu amarillo pastel aesthetic
+                    background= BASE,
+                    padding=5,
+                    mouse_callbacks={
+                        # UN SOLO CLIC: Si está en inglés pasa a español, si está en español pasa a inglés
+                        'Button1': lazy.spawn("sh -c 'setxkbmap -query | grep -q \"layout:     us\" && setxkbmap es || setxkbmap us'")
+                    }
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", 
+                    background="#1e1e2e",
+                    padding=2
+                ),
+                
+                widget.TextBox(
+                    #inicio de wifi 
+                    text = "󰤨", # Ícono premium de Nerd Fonts
+                    font = FONT,
+                    fontsize = 18,
+                    foreground = COLOR_ICONS,   
+                    background = BASE,
+                    padding = 6,
+                    # Al hacerle click izquierdo, te abre el gestor de red en la terminal
+                    mouse_callbacks = {
+                        'Button1': lambda: qtile.spawn('bash -c "sh ~/.config/qtile/wifimenu.sh"')
+                    }
+                    #fin de wifi
+                ),
+                                widget.TextBox(
+                    text=" | ",
+                    foreground="#44475a", # Un gris sutil para separar del siguiente widget
+                    background="#1e1e2e",
+                    padding=2
+            ),
+                #boton para el pagado
+                widget.TextBox(
+                    #inicio del boton apagado
+                    text = "",
+                    foreground = COLOR_ICONS,
+                    background = BASE,
+                    fontsize = 18,
+                    padding = 10,
+                    mouse_callbacks = {
+                            'Button1': lambda: qtile.spawn('bash -c "sh ~/.config/qtile/powermenu.sh"')
+                        }
+                    #fin del boton apagado
+                    
+                    ),
+                
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 8, # es el espacio transparente que tendra 
+
+                ),
+
+                
+            ],
+            30,
+            background= BASE_TRANSPARENTE,
+            margin = [5,0,5,0]
+        ),
+        wallpaper='~/.config/qtile/Wallpaper/wall.png',
+        wallpaper_mode="fill",
+
+    ),
+    
+
+ 
+    
+    #monitor 3
+    Screen(
+        #ESPACIO ENTRE EL BORDE
+        top = bar.Bar( 
+            [
+                widget.Spacer(
+                    length = 10,
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #ESPACIO DE LOS ENTORNOS DE PANTALLAS (TRABAJO)
+                widget.GroupBox(
+                    visible_groups = ['1', '2', '3'] if Screen == 0 else ['4', '5', '6'],
+                    font = FONT,
+                    highlight_method = 'block',
+                    inactive = COLOR_SECOND, #color que tomara cuando no este ocupando el escritorio
+                    active = COLOR_SECOND,
+                    foreground = COLOR_SECOND, #color como se va a ver los textos
+                    background = BASE,
+                    this_current_screen_border = COLOR_CILE,
+                    disable_drag = True,
+                    
+                    #redondeo 
+                    rounded = True,
+                    borderwidth = 2,
+                    
+                    #tamaño de las capsulas
+                    padding_x = 10, #espacio horizonal interno del ovalo
+                    padding_y = 6, #espacio vertical interno del ovalo
+                    margin_x = 5, #separacion entre los numeros
+                    margin_y = 3, 
+                    
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 10,
+                     
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #CONFUGURACION PARA EL TIPO DE VENTANA (COLUMNS, MATRIX, MAX, FLOATING, ETC..)
+                widget.CurrentLayout(
+                    background =BASE,
+                    foreground = TEXT_COLOR,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 0,
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 10,
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                #CONFIGURACION PARA LOS TEXTO DE LAS APLICACIONES EN LA BARRA DE TAREA
+                widget.WindowName(
+                    background =BASE,
+                    foreground = TEXT_COLOR,
+                    fontsize = 15,
+                    parse_text = limpiar_nombre_ventana,
+                    #padding = 10,
+                    width = bar.CALCULATED,
+                    max_chars= 10, # Limita el nombre de la ventana a 20 caracteres para evitar que se desborde en la barra.
+                ),
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 430,
+            
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.GenPollText(
+                    func = obtener_hora_am_pm,
+                    update_interval = 1,
+                    format = "%I:%M", 
+                    background = BASE,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 0,
+                    mouse_callbacks = {
+                      'Button1': lazy.spawn('gsimplecal')  
+                    },
+                ), 
+                widget.GenPollText(
+                    func = obtener_clima,
+                    update_interval = 900,  # Se actualiza cada 15 minutos 
+                    background = BASE,
+                    font = FONT,
+                    fontsize = 15,
+                    padding = 10,          
+                    foreground = COLOR_ICONS,
+                ),
+                #border redondeados lado derecho
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                widget.Spacer(
+                    length = 500,
+            
+                ),
+                #border redondeados lado izquierdo
+                widget.TextBox(
+                    text = "",
+                    foreground = BASE,        # El colro base 
+                    fontsize = 27.5,            # Tamaño del arco
+                    padding = 0
+                ),
+                
+                #volumen 
+                widget.TextBox(
+                    text="  ",
+                    foreground= COLOR_ICONS, 
+                    background= BASE,
+                    padding=2
+                ),
+                widget.Volume(
+                    foreground= COLOR_ICONS,
+                    background= BASE,
+                    fmt="{} ",
+                    padding=5,
+            
+                    volume_up_command="amixer set Master 2%+",   # Sube de a 5%
+                    volume_down_command="amixer set Master 2%-", # Baja de a 5%
+                    volume_app="amixer", # Vincula el control interno del widget
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", # Un gris sutil para separar del siguiente widget
+                    background= BASE,
+                    padding=2
+                ),
+                #bluetooth
+                widget.TextBox(
+                    text=" 󰂯 ",
+                    foreground=COLOR_ICONS, 
+                    background=BASE,
+                    fontsize=16,
+                    mouse_callbacks={
+                        'Button1': lazy.spawn("rofi-bluetooth"),
+                        'Button3': lazy.spawn("bluetoothctl power toggle")
+                    }
+                ),
+                widget.TextBox(
+                    text="|",
+                    foreground="#44475a", 
+                    background="#1e1e2e",
+                    padding=2
+                ),
+                #monitoreo
+                
+                
+                #idioma de telcado
+                widget.TextBox(
+                    text=" 󰌌 ",      
+                    fontsize=16 ,            
                     foreground= COLOR_ICONS,   # Tu amarillo pastel aesthetic
                     background= BASE,
                     padding=5,
@@ -608,420 +1145,6 @@ screens = [
         wallpaper='~/.config/qtile/Wallpaper/wall.png',
         wallpaper_mode="fill",
 
-    ),
-    
-    
-    
-    #monitor 2
-    Screen(
-        #ESPACIO ENTRE EL BORDE
-        top = bar.Bar( 
-            [
-                widget.Spacer(
-                    length = 8, # es el espacio transparente que tendra 
-
-                ),
-                #border redondeados lado izquierdo
-                widget.TextBox(
-                    text = "█",
-                    foreground = BASE,        # El colro base 
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                #ESPACIO DE LOS ENTORNOS DE PANTALLAS (TRABAJO)
-                widget.GroupBox(
-                    visible_groups = ['1', '2', '3'] if Screen == 0 else ['4', '5', '6'],
-                    font = FONT,
-                    highlight_method = 'block',
-                    inactive = COLOR_SECOND, #color que tomara cuando no este ocupando el escritorio
-                    active = COLOR_SECOND,
-                    foreground = COLOR_SECOND, #color como se va a ver los textos
-                    background = BASE,
-                    this_current_screen_border = COLOR_CILE,
-                    disable_drag = True,
-                    
-                    #redondeo 
-                    rounded = True,
-                    borderwidth = 2,
-                    
-                    #tamaño de las capsulas
-                    padding_x = 10, #espacio horizonal interno del ovalo
-                    padding_y = 6, #espacio vertical interno del ovalo
-                    margin_x = 5, #separacion entre los numeros
-                    margin_y = 3, 
-                    
-                ),
-                #border redondeados lado derecho
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                widget.Spacer(
-                    length = 10,
-                    background = '#000000.0',    
-                ),
-                #border redondeados lado izquierdo
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                #CONFUGURACION PARA EL TIPO DE VENTANA (COLUMNS, MATRIX, MAX, FLOATING, ETC..)
-                widget.CurrentLayout(
-                    background =BASE,
-                    foreground = TEXT_COLOR,
-                    font = FONT,
-                    fontsize = 15,
-                    padding = 0,
-                ),
-                #border redondeados lado derecho
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                widget.Spacer(
-                    length = 10,
-                    background = '#000000.0',
-                ),
-                #border redondeados lado izquierdo
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                #CONFIGURACION PARA LOS TEXTO DE LAS APLICACIONES EN LA BARRA DE TAREA
-                widget.WindowName(
-                    background =BASE,
-                    foreground = TEXT_COLOR,
-                    fontsize = 15,
-                    parse_text = limpiar_nombre_ventana,
-                    #padding = 10,
-                    width = bar.CALCULATED,
-                ),
-                #border redondeados lado derecho
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                widget.Spacer(
-                    length = 550,
-                    background = '#000000.0',
-            
-                ),
-                #border redondeados lado izquierdo
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                widget.GenPollText(
-                    func = obtener_hora_am_pm,
-                    update_interval = 1,
-                    format = "%I:%M", 
-                    background = BASE,
-                    font = FONT,
-                    fontsize = 15,
-                    padding = 0,
-                    mouse_callbacks = {
-                      'Button1': lazy.spawn('gsimplecal')  
-                    },
-                ), 
-                widget.GenPollText(
-                    func = obtener_clima,
-                    update_interval = 900,  # Se actualiza cada 15 minutos (900 segundos) para no saturar tu red
-                    background = BASE,
-                    font = FONT,
-                    fontsize = 15,
-                    padding = 10,           # Le damos un poquito de aire a los lados
-                    foreground = TEXT_COLOR,
-                ),
-                #border redondeados lado derecho
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                widget.Spacer(
-                    length = 500,
-                    background = '#000000.0',
-            
-                ),
-                
-                #border redondeados lado izquierdo
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                #boton para el pagado
-                widget.TextBox(
-                    text = "", # Icono de apagado de Nerd Fonts
-                    font = FONT,
-                    fontsize = 14,
-                    
-                
-                    padding = 6,
-                    # Al hacer clic izquierdo (Button 1), abre tu menú de apagado (puedes usar rofi si lo tienes)
-                    mouse_callbacks = {
-                        'Button1': lazy.spawn('systemctl poweroff'), # Clic izquierdo: Apaga el PC
-                        'Button3': lazy.spawn('systemctl reboot'),   # Clic derecho: Reinicia el PC
-                    },
-                ),
-                
-                #border redondeados lado derecho
-                widget.TextBox(
-                    text = "",
-                    foreground = BASE,        # El colro base 
-                    background = '#000000.0', # El fondo transparente de la barra
-                    fontsize = 27.5,            # Tamaño del arco
-                    padding = 0
-                ),
-                widget.Spacer(
-                    length = 8, # es el espacio transparente que tendra 
-                    background = '#000000.0',
-
-                ),
-
-                
-            ],
-            33,
-            background= BASE_TRANSPARENTE,
-        ),
-        wallpaper='~/.config/qtile/Wallpaper/wall.png',
-        wallpaper_mode="fill",
-
-    ),
-    
-
- 
-    
-    #monitor 3
-    Screen(
-        top = bar.Bar(
-            [   
-                widget.Spacer(
-                    length = 18,
-                    background = "#1e2030",
-                ),
-                
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/launch_Icon.png',
-                    background = '#1e2030',
-                    mouse_callbacks = {'Button1': open_launcher},
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/6.png',
-                ),
-
-                widget.GroupBox(
-                    fontsize = 16,
-                    borderwidth = 0,
-                    highlight_method = 'block',
-                    active = '#c19cf2', #Active workspaces circle color
-                    block_highlight_text_color = '#c19cf2', #Current workspace circle color
-                    highlight_color = '#4B427E',
-                    inactive = "#ffffff", #Empty workspace circle
-                    foreground = '#c19cf2',
-                    background = '#1e2030',
-                    this_current_screen_border = "#1e2030", #Circle background color
-                    this_screen_border = '#52548D',
-                    other_current_screen_border = '#c19cf2',
-                    other_screen_border = '#52548D',
-                    urgent_border = '#52548D',
-                    rounded = True,
-                    disable_drag = True,
-                 ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/2.png',
-                ),
-                
-                widget.CurrentLayout(
-                    background ='#1e2030',
-                    font = 'IBM Plex Mono Medium',
-                    fontsize = 15,
-                    padding = 0,
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',                
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/2.png',
-                ),
-
-                widget.WindowName(
-                    background = '#1e2030',
-                    format = "{name}",
-                    font = 'IBM Plex Mono Medium',
-                    fontsize = 14,
-                    empty_group_string = 'Desktop',
-                    padding = 0,
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',                
-                ),  
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/1.png',                
-                    background = '#1e2030',
-                ),
-
-                widget.CPU(
-                    font = "IBM Plex Mono Medium",
-                    format='CPU:({load_percent:.1f}%/{freq_current}GHz)',
-                    fontsize = 15,
-                    margin = 0,
-                    padding = 0,
-                    background = '#1e2030',
-                    mouse_callbacks = {'Button1': open_btop},
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/2.png',                
-                    background = '#1e2030',
-                ),  
-  
-                widget.Systray(
-                    background = '#1e2030',
-                    icon_size = 24,
-                    padding = 3,
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/2.png',                
-                    background = '#1e2030',
-                ),                    
-                                                
-                widget.Spacer(
-                    length = 0,
-                    background = '#1e2030',
-                ),  
-               
-                widget.Memory(
-                    format = 'RAM:({MemUsed:.0f}MB/{MemTotal:.0f}MB)',
-                    font = "IBM Plex Mono Medium",
-                    fontsize = 15,
-                    padding = 0,
-                    background = '#1e2030',
-                    mouse_callbacks = {'Button1': open_btop},
-                ),
-
-                widget.Spacer(
-                    length = 6,
-                    background = '#1e2030',
-                ),  
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/Bar-Icons/volume.svg',
-                    background = '#1e2030',
-                    margin_y = 3,
-                    scale = True,
-                    mouse_callbacks = {'Button1': open_btop},
-                ),
-
-                widget.Spacer(
-                    length = 4,
-                    background = '#1e2030',
-                ), 
-                
-                widget.PulseVolume(
-                    font= 'IBM Plex Mono Medium',
-                    fontsize = 15,
-                    padding = 0,
-                    background = '#1e2030',
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/5.png',
-                ),                
-
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/1.png',                
-                    background = '#1e2030',
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/Bar-Icons/calendar.svg',
-                    background = '#1e2030',
-                    margin_y = 3,
-                    scale = True,
-                ),
-
-                widget.Spacer(
-                    length = 6,
-                    background = '#1e2030',
-                ), 
-        
-                widget.Clock(
-                    format = '%d/%m/%y ', #Here you can change between USA or another timezone
-                    background = '#1e2030',
-                    font = "IBM Plex Mono Medium",
-                    fontsize = 15,
-                    padding = 0,
-                ),
-
-                widget.Image(
-                    filename = '~/.config/qtile/Assets/Bar-Icons/clock.svg',
-                    background = '#1e2030',
-                    margin_y = 3,
-                    margin_x = 5,
-                    scale = True,
-                ),
-
-                widget.Clock(
-                    format = '%H:%M', 
-                    background = '#1e2030',
-                    font = "IBM Plex Mono Medium",
-                    fontsize = 15,
-                    padding = 0,
-                ),
-
-                widget.Spacer(
-                    length = 18,
-                    background = '#1e2030',
-                ),
-            ],
-            30,  # Bar size (all axis)
-            margin = [0,8,6,8] # Bar margin (Top,Right,Bottom,Left)
-        ),
-        wallpaper='~/.config/qtile/Wallpaper/Skyscraper.png',
-        wallpaper_mode="fill",
     ),
 ]
 
