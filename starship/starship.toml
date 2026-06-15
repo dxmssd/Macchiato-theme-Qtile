@@ -1,0 +1,26 @@
+format = """
+[░▒▓](#313244)$custom$directory$cmd_duration[▓▒░](#313244)
+[└─> ](#f5c2e7)"""
+
+add_newline = false
+
+[custom.fish]
+command = "echo fish"
+when = "true"
+style = "bg:#313244 fg:#f5c2e7" # Fondo gris azulado, texto rosa pastel (como tus iconos de arriba)
+format = "[λ $output ]($style)"
+
+[directory]
+style = "bg:#313244 fg:#cdd6f4"
+format = "[  ➜ $path ]($style)"
+truncation_length = 3
+
+[cmd_duration]
+min_time = 1
+style = "bg:#313244 fg:#a6e3a1" # Texto color menta/verde pastel para combinar con tu hardware
+format = "[  $duration ]($style)"
+
+[character]
+disabled = true
+[line_break]
+disabled = true
