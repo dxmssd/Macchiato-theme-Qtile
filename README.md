@@ -1,4 +1,4 @@
-## 📸 Capturas del Setup
+## 📸 Capturas del tema
 
 <table>
   <tr>
